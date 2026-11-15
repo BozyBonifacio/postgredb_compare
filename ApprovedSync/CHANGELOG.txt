@@ -1,0 +1,21 @@
+v2.0 - 2026-11-15
+GENERIC: no environment-specific defaults or run-specific guards. -Server, -UserName, -SourceDatabase, -TargetDatabase, -ComparisonDirectory and -ApprovalManifest are required.
+NEW: the record key is each table's single-column primary key from the baseline catalog (any column name or type) instead of a fixed "Id" column. The key staging table takes the key column's type.
+NEW: per-operation approval. An InsertApproval/UpdateApproval other than Approved (e.g. Deferred) excludes that operation and must have a zero approved count. Replaces the v1.2 hard-coded deferred table.
+NEW: -SourceDatabase/-TargetDatabase must match the baseline run-config.json (replaces hard-coded database names).
+NEW: -ProductionServer for the Production/Clone Apply server guard (case-insensitive hostname comparison); -ConfirmTargetDatabase must equal -TargetDatabase.
+NEW: optional -ExpectedApprovedTableCount tripwire (replaces the hard-coded table count).
+NEW: -Port and -SslMode; -ManagedIdentityClientId is optional (standard libpq authentication otherwise); -ManagedIdentityName renamed to -UserName.
+NEW: manifest checks for duplicate rows and for reconciliation of SourceOnlyCandidates, ChangedCandidates and TargetOnlyPreserved with the baseline.
+CHANGED: deployable record keys may use A-Z a-z 0-9 _ . : @ -; keys of excluded records (e.g. TARGET_ONLY) are no longer format-checked.
+CHANGED: temporary tables renamed to __sync_keys / __sync_stage; the shipped manifest is now ApprovedScope.example.csv.
+REQUIRES: a Compare-TableRecords.ps1 v2.0 baseline. v1.x baselines, plans and run directories are not compatible.
+TEST: Test-ApprovedSync-Syntax.ps1 validates any manifest with the same rules; expected totals are optional.
+Not yet run against a live server: follow the pilot and clone steps in README.txt.
+
+v1.2 - 2026-11-03
+Deployment-scope override that excluded one deferred table from Apply (hard-coded; superseded by per-operation approval in v2.0).
+
+v1.1
+Bugfix: 3 invalid PowerShell expandable strings ($table:) replaced with (${table}:).
+No SQL or approval modifications.

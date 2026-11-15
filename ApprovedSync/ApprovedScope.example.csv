@@ -1,0 +1,6 @@
+Table,SourceOnlyCandidates,ChangedCandidates,TargetOnlyPreserved,InsertApproval,UpdateApproval,DeleteApproval,ApprovedInsertCandidates,ApprovedUpdateCandidates,ApprovedDeleteCandidates,Notes
+public.customers,120,15,3,Approved,Approved,REJECTED,120,15,0,Business data - owner sign-off recorded
+public.orders,4500,0,0,Approved,Not applicable,REJECTED,4500,0,0,
+public.order_items,9800,42,0,Approved,Deferred,REJECTED,9800,0,0,Updates deferred pending field-level review
+public.audit_log,2300,0,150,Rejected,Not applicable,REJECTED,0,0,0,History table - not synchronized
+public.app_settings,0,7,0,Not applicable,Deferred,REJECTED,0,0,0,Deferred - review with FieldLevelDiff first

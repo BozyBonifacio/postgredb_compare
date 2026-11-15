@@ -1,0 +1,5 @@
+# Default output folders. Run outputs can contain row-level data; never commit them.
+/DatabaseCompare/
+/DatabaseRecordCompare/
+/FieldLevelDiffReports/
+/DatabaseSync/

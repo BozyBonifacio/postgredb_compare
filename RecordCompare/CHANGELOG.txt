@@ -1,0 +1,15 @@
+v2.0 - 2026-11-15
+GENERIC: no environment-specific defaults; -Server, -UserName, -SourceDatabase and -TargetDatabase are required.
+NEW: records are matched on each table's single-column primary key (any column name or type) instead of a fixed "Id" column.
+NEW: the catalog covers ordinary tables in all user schemas; -Schemas optionally limits -AllTables.
+NEW: -Port and -SslMode; -ManagedIdentityClientId is optional (standard libpq authentication otherwise); -ManagedIdentityName renamed to -UserName.
+CHANGED: catalog CSV column id_primary_key replaced by primary_key_column; run-config.json records Port. v1.x runs cannot be resumed and are not valid ApprovedSync baselines.
+CHANGED: default output folder is DatabaseRecordCompare under the current directory; relative paths resolve against the PowerShell location.
+TEST: offline self-test also guards against a hard-coded key column.
+Not yet run against a live server: use -PreflightOnly and a small pilot first.
+
+v1.1 - 2026-10-29
+FIX: id_hex alias cannot be used in an ORDER BY COLLATE expression in the same SELECT; move expressions into fp subquery.
+NEW: -PreflightOnly builds and runs zero-row read-only COPY queries on both databases to validate SQL without a full scan.
+TEST: offline self-test now checks for regression to the bad SQL alias pattern.
+UNCHANGED: SHA-256 fingerprints, Id matching, result formats, read-only PostgreSQL sessions, resume checkpoints.
